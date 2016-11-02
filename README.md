@@ -9,3 +9,5 @@ index.html是最终效果
 1.html,2.html,3.html...是分步实现
 
 这本书虽然简单，但是它可以帮助你在**最短**的时间内学会AngularJS
+
+－ 至于本书开始无法使用node.js的connect模块生成服务器，答案在这里：https://segmentfault.com/q/1010000005090969
