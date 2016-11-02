@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../dist/css/bootstrap-theme.min.css"/>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <script src="../dist/js/angular.min.js"></script>
+    <script>
+        console.log(angular.isString("hello") + " " + angular.isArray(23));
+        console.log("I am " + angular.uppercase("shouting"));
+        console.log("I am " + angular.lowercase("WhiSpeRing"));
+
+        console.log("---------------");
+
+        var dayInWeek = 7;
+        var pi = 3.14;
+        var hexValue = 0xFFFF;
+
+        console.log(angular.isNumber(7) + " " + angular.isNumber("Hello"));
+
+        console.log("---------------");
+
+        var myData = {
+            name: "Adam",
+            weather: "sunny",
+            prinMessages: function() {
+                console.log("Hello " + this.name + ". ");
+                console.log("Today is " + this.weather + ". ");
+            }
+        };
+
+        var myExtendedObject = {
+            city: "London"
+        };
+
+        angular.extend(myExtendedObject,myData);
+
+        console.log(myExtendedObject.name);
+        console.log(myExtendedObject.city);
+
+        console.log("---------------");
+
+        var myObject = {
+            name: "Adam",
+            weather: "sunny"
+        };
+
+        var myName = "Adam";
+        var myNumber = 23;
+
+        console.log("myObject: " + angular.isObject(myObject));
+        console.log("myName: " + angular.isObject(myName));
+        console.log("myNumber: " + angular.isObject(myNumber));
+
+        console.log("---------------");
+
+        for(var prop in myData) {
+            console.log("Name: " + prop + "Value: " + myData[prop]);
+        }
+
+        console.log("---------------");
+
+        angular.forEach(myData,function(value,key) {
+            console.log("Name: " + key + " Value: " + value)
+        });
+
+        console.log("---------------");
+
+        myData.sayHello = function() {
+            console.log("hello");
+        };
+
+        delete myData.name;
+        delete myData['weather'];
+        delete myData.SayHello;
+
+        console.log(myData.name);
+        console.log(myData.weather);
+        console.log(myData.SayHello);
+
+        console.log("---------------");
+
+        var myData = {
+            name: "Adam",
+            weather: "sunny"
+        };
+
+        var hasName = "name" in myData;
+        var hasDate = "date" in myData;
+
+        console.log("hasName: " + hasName);
+        console.log("hasDate: " + hasDate);
+
+        console.log("---------------");
+
+        var myData = {
+            name: "Adam",
+            city: null
+        };
+
+        console.log("name: " + angular.isDefined(myData.name));
+        console.log("city: " + angular.isDefined(myData.city));
+        console.log("country: " + angular.isDefined(myData.country));
+
+        console.log("---------------");
+
+
+
+    </script>
+    <script>
+        var myApp = angular.module("demo",[]);
+
+        myApp.controller("demoCtrl",function($scope,$http) {
+            $http.get("todo.json").then(function(response) {
+                $scope.todos = response.data;
+            },function() {
+                $scope.todos = [{action: "Error"}];
+            },function() {
+                $scope.todos.push({action: "Request Complete"});
+            });
+        });
+    </script>
+</head>
+<body ng-controller="demoCtrl">
+    <div class="panel">
+        <h1>To Do</h1>
+        <table class="table">
+            <tr>
+                <td>Action</td>
+                <td>Done</td>
+            </tr>
+            <tr ng-repeat="item in todos">
+                <td>{{ item.action }}</td>
+                <td>{{ item.done }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
